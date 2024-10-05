@@ -17,11 +17,16 @@ class ProductoController extends Controller
     }
     public function create()
     {
-        return 'aqui se crea un nuevo producto (crate)';
+        return view('Productos.create');
     }
     public function store(Request $request)
     {
-        return 'store';
+        $producto =  new producto();
+
+        $producto->name=$request->name;
+        $producto->price=$request->price;
+        $producto->save();
+        return redirect()->route('Productos.index');
     }
 
     public function show(string $id)
@@ -40,6 +45,6 @@ class ProductoController extends Controller
     }
     public function destroy(string $id)
     {
-        return $id;
+        return 'se elimino: '. $id;
     }
 }
