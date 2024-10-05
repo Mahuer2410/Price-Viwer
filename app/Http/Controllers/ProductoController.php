@@ -36,12 +36,20 @@ class ProductoController extends Controller
 
     public function edit(string $id)
     {
-        return $id;
+        $producto = producto::find($id);
+        $data = [
+            'producto'=>$producto,
+        ];
+        return view('Productos.edit',$data);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $producto = producto::find($id);
+        $producto->name=$request->name;
+        $producto->price=$request->price;
+        $producto->save();
+        return redirect()->route('Productos.index');
     }
     public function destroy(string $id)
     {
