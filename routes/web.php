@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('main', function () {
-    return view('main');
-});
-
 Route::get('Productos',[ProductoController::class,'index'])->name('Productos.index');
 Route::get('Productos/create',[ProductoController::class,'create'])->name('Productos.create');
 Route::post('Productos',[ProductoController::class,'store'])->name('Productos.store');

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
+            $table->string('image')->nullable();
             $table->string('name');
+            $table->string('direction')->nullable();
             $table->decimal('price',10, 2);
             $table->timestamps();
         });

@@ -1,41 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+@extends('Template.Plantilla')
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    
-</head>
-<body>
-    <a href="{{ route('Productos.create') }}">Crear</a>
+@section('contenedor')
+<!--Crear producto-->
+@include('Productos.create')
+<!--Crear producto-->
 
 <!--Tabla de productos-->
-    <table border="1" style="width: 50%;">
-        <thead>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Opciones</th>
+<div class="mt-5">
+    <table class="table">
+        <thead class="table-hover table-active">
+            <tr>
+                <th style="text-align: center;">Imagen</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Direccion</th>
+                <th style="text-align: center;">Opciones</th>
+            </tr>
         </thead>
         <tbody>
             @foreach ($productos as $producto)
-                <tr>
-                    <td>{{$producto->name}}</td>
-                    <td>{{$producto->price}}</td>
-                    <td style="width: 25%;">
-                        <a href="{{ route('Productos.edit',$producto->id) }}">Editar</a>
+            <tr>
+                <td scope="row" class="text-center"><img src="/img/productos/{{$producto->image}}" alt="" style="max-width: 50px; min-width:auto"></td>
+                <td class="align-middle">{{$producto->name}}</td>
+                <td class="align-middle">{{$producto->price}}</td>
+                <td class="align-middle">{{$producto->direction}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="{{ route('Productos.show',$producto->id) }}" class="btn btn-primary btn-sm">+</a>
+                        <a href="{{ route('Productos.edit',$producto->id) }}" class="btn btn-warning  btn-sm" ><i class="bi bi-pencil "></i>Editar</a>
                         <form action="{{ route('Productos.destroy',$producto->id) }}" method="POST">
                             @method('DELETE')
                             @csrf
-                            <input type="submit" value="eliminar">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
                         </form>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+
+            </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+        </tfoot>
     </table>
-</body>
-</html>
+</div>
+@endsection
