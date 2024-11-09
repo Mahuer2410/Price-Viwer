@@ -9,12 +9,19 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
+    public function mainProductos()
+    {
+        $data = [
+            'nombreVista' => 'Main'
+        ];
+        return view('main', $data);
+    }
     public function index()
     {
         $productos = producto::all();
         $data = [
             'productos' => $productos,
-            'nombreVista' => 'Productos '
+            'nombreVista' => 'Productos'
         ];
         return view('productos.index', $data);
     }
