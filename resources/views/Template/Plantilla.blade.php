@@ -133,9 +133,13 @@
             <!--Navbar-->
             <nav class="col-md-1 d-none d-md-block sidebar">
                 <div class="sidebar-sticky">
+                    <!--Icono-->
                     <div class="nav flex-column">
-                        <img src="/img/Icon.png" alt="Icon" class="img-fluid">
+                        <a href="{{ route('Productos.main') }}">
+                            <img src="/img/Icon.png" alt="Icon" class="img-fluid">
+                        </a>
                     </div>
+                    <!--Menu-->
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
@@ -158,7 +162,24 @@
             <!--Header-->
             <div class="col-md-11">
                 <div class="header row">
-                    <h2 class="mt-2">{{ $nombreVista }}</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="mt-2">{{ $nombreVista }}</h2>
+                        
+                        <!-- Agregar autenticación -->
+                        @if (Route::has('login'))
+                            <div class="text-end">
+                                @auth
+                                    <a href="{{ url('/dashboard') }}" class="btn btn-custom">Usuario</a>
+                                @else
+                                    <a href="{{ route('login') }}" class="btn btn-custom me-2">Iniciar Sesión</a>
+
+                                    @if (Route::has('register'))
+                                        <a href="{{ route('register') }}" class="btn btn-custom">Registrarse</a>
+                                    @endif
+                                @endauth
+                            </div>
+                        @endif
+                    </div>
                 </div>
                 <main role="main" class="ml-sm-auto px-4">
                     <!--Contenido de las vistas-->

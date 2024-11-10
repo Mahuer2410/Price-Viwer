@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/welcome', function () {return view('welcome');});
+
+// Rutas de Productos
 Route::get('/', [ProductoController::class,'mainProductos'])->name('Productos.main');
 
 Route::get('Productos',[ProductoController::class,'index'])->name('Productos.index');
@@ -24,3 +28,15 @@ Route::get('Productos/{id}/edit',[ProductoController::class,'edit'])->name('Prod
 Route::put('Productos/{id}',[ProductoController::class,'update'])->name('Productos.update');
 Route::delete('Productos/{id}',[ProductoController::class,'destroy'])->name('Productos.destroy');
 
+// Rutas de Breeze
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
