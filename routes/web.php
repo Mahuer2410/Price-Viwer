@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Producto;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,9 @@ Route::delete('Productos/{id}',[ProductoController::class,'destroy'])->name('Pro
 
 // Rutas de Breeze
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    $productos = Producto::all();
+    return view('dashboard', compact('productos'));
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
