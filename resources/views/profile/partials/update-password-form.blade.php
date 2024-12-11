@@ -1,10 +1,14 @@
+<head>
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+
+</head>
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+        <h2 class="text-lg font-medium text-black dark:text-black">
             {{ __('Update Password') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-800">
             {{ __('Ensure your account is using a long, random password to stay secure.') }}
         </p>
     </header>
@@ -32,7 +36,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <button type="submit" class="btn btn-custom ml-3">{{ __('Save') }}</button>
 
             @if (session('status') === 'password-updated')
                 <p

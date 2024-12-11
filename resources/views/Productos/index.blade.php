@@ -19,26 +19,25 @@
         </thead>
         <tbody>
             @foreach ($productos as $producto)
-            <tr>
-                <td scope="row" class="text-center"><img src="/img/productos/{{$producto->image}}" alt="" style="max-width: 50px; min-width:auto"></td>
-                <td class="align-middle">{{$producto->name}}</td>
-                <td class="align-middle">{{$producto->price}}</td>
-                <td class="align-middle">{{$producto->direction}}</td>
-                <td>
-                    <div class="btn-group">
-                        <a href="{{ route('Productos.show',$producto->id) }}" class="btn btn-primary btn-sm">+</a>
-                        <a href="{{ route('Productos.edit',$producto->id) }}" class="btn btn-warning  btn-sm" ><i class="bi bi-pencil "></i>Editar</a>
-                        <form action="{{ route('Productos.destroy',$producto->id) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        </form>
-                    </div>
-                </td>
-
-            </tr>
+                <tr>
+                    <td scope="row" class="text-center"><img src="/img/productos/{{$producto->image}}" alt="" style="max-width: 50px; min-width:auto"></td>
+                    <td class="align-middle">{{$producto->name}}</td>
+                    <td class="align-middle">{{$producto->price}}</td>
+                    <td class="align-middle">{{$producto->direction}}</td>
+                    <td class="text-center">
+                        <div class="btn-group flex justify-center">
+                            <a href="{{ route('Productos.show',$producto->id) }}" class="btn btn-primary btn-sm">+</a>
+                            <a href="{{ route('Productos.edit',$producto->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i>Editar</a>
+                            <form action="{{ route('Productos.destroy',$producto->id) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
             @endforeach
         </tbody>
         <tfoot>

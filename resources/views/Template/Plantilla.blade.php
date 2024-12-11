@@ -54,7 +54,7 @@
     <div class="container-fluid">
         <div class="row">
             <!--Navbar-->
-            <nav class="col-md-1 d-none d-md-block sidebar">
+            <nav class="col-md-1 d-none d-md-block sidebar" style="border-right: 1px solid #000;">
                 <div class="sidebar-sticky">
                     <!--Icono-->
                     <div class="nav flex-column">

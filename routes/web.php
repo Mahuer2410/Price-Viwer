@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Producto;
 
@@ -19,26 +20,36 @@ use App\Models\Producto;
 Route::get('/welcome', function () {return view('welcome');});
 
 // Rutas de Productos
-Route::get('/', [ProductoController::class,'mainProductos'])->name('Productos.main');
+Route::get('/', [ProductoController::class,'mainProductos'])
+->name('Productos.main');
 
-Route::get('Productos',[ProductoController::class,'index'])->name('Productos.index');
-Route::get('Productos/create',[ProductoController::class,'create'])->name('Productos.create');
-Route::post('Productos',[ProductoController::class,'store'])->name('Productos.store');
-Route::get('Productos/{id}',[ProductoController::class,'show'])->name('Productos.show');
-Route::get('Productos/{id}/edit',[ProductoController::class,'edit'])->name('Productos.edit');
-Route::put('Productos/{id}',[ProductoController::class,'update'])->name('Productos.update');
-Route::delete('Productos/{id}',[ProductoController::class,'destroy'])->name('Productos.destroy');
+Route::get('Productos',[ProductoController::class,'index'])
+->name('Productos.index');
+Route::get('Productos/create',[ProductoController::class,'create'])
+->name('Productos.create');
+Route::post('Productos',[ProductoController::class,'store'])
+->name('Productos.store');
+Route::get('Productos/{id}',[ProductoController::class,'show'])
+->name('Productos.show');
+Route::get('Productos/{id}/edit',[ProductoController::class,'edit'])
+->name('Productos.edit');
+Route::put('Productos/{id}',[ProductoController::class,'update'])
+->name('Productos.update');
+Route::delete('Productos/{id}',[ProductoController::class,'destroy'])
+->name('Productos.destroy');
 
 // Rutas de Breeze
-Route::get('/dashboard', function () {
-    $productos = Producto::all();
-    return view('dashboard', compact('productos'));
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])
+    ->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+    ->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+    ->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
