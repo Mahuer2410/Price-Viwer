@@ -38,6 +38,9 @@ Route::put('Productos/{id}',[ProductoController::class,'update'])
 Route::delete('Productos/{id}',[ProductoController::class,'destroy'])
 ->name('Productos.destroy');
 
+Route::get('/buscador', [ProductoController::class, 'buscador'])
+->name('Productos.buscador');
+
 // Rutas de Breeze
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])

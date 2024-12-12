@@ -42,7 +42,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5"></td>
+                <td colspan="5">{{$productos->links()}}</td>
             </tr>
         </tfoot>
     </table>

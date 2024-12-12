@@ -18,7 +18,7 @@ class ProductoController extends Controller
     }
     public function index()
     {
-        $productos = producto::all();
+        $productos = producto::paginate(2);
         $data = [
             'productos' => $productos,
             'nombreVista' => 'Productos'
@@ -100,5 +100,25 @@ class ProductoController extends Controller
         $producto = producto::find($id);
         $producto->delete();
         return redirect()->route('Productos.index');
+    }
+
+    public function buscador(Request $request)
+    {
+        $busqueda = $request->input('busqueda', '');
+        $productos = collect();
+
+        if (!empty($busqueda)) {
+            $productos = producto::where('name', 'like', '%' . $busqueda . '%')
+                ->orWhere('price', 'like', '%' . $busqueda . '%')
+                ->orderBy('price', 'asc')
+                ->paginate(2);
+        }
+
+        $data = [
+            'productos' => $productos,
+            'nombreVista' => 'Buscador',
+            'busqueda' => $busqueda
+        ];
+        return view('Buscador', $data);
     }
 }
