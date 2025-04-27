@@ -49,27 +49,35 @@
 
 /* Imágenes */
 .image-preview {
-    width: 160px;
-    height: 150px;
+    max-width: 160px;
+    min-width: auto;
+    max-height: 150px;
+    min-height: auto;
     object-fit: cover;
 }
 
-/* Sidebar */
+/* Sidebar y Offcanvas */
 .sidebar {
-    height: 100vh;
-    background-color: #E90000;
+    background-color: #E90000 !important;
     color: white;
     padding: 0.5rem;
-    position: sticky;
-    top: 0;
+    height: 100vh;
+    overflow-x: hidden;
 }
 
+/* Ícono en sidebar */
+.sidebar img {
+    max-width: 100px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Enlaces del sidebar */
 .sidebar a {
     color: white;
     text-decoration: none;
     display: block;
     padding: 10px;
-    word-wrap: break-word;
 }
 
 .sidebar a:hover {
@@ -83,8 +91,36 @@
     word-wrap: break-word;
 }
 
-/* Media queries */
-@media (max-width: 768px) {
+/* Sidebar en desktop */
+/* Sidebar correcto en desktop */
+@media (min-width: 780px) {
+    #sidebarMenu {
+        width: 250px;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        background-color: #E90000 !important;
+        z-index: 1045;
+        border-right: 1px solid #000;
+        display: block !important; /* Aseguramos que no sea hidden */
+        transform: none !important; /* Quitamos transformaciones de offcanvas */
+        visibility: visible !important;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+    .offcanvas-backdrop {
+        display: none !important;
+    }
+
+    main {
+        margin-left: 250px;
+    }
+}
+
+
+/* Ajustes móviles */
+@media (max-width: 780px) {
     .btn-custom {
         padding: 0.5rem 1rem;
     }
@@ -93,4 +129,22 @@
         padding: 5px;
         font-size: 7px;
     }
-} 
+}
+
+/* Animación de sidebar */
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Main content más controlado */
+main > .container {
+    max-width: 1000px;
+    margin: auto;
+}

@@ -48,35 +48,42 @@
         }
     </script>
     <!--Estilos-->
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!--Navbar-->
-            <nav class="col-md-1 d-none d-md-block sidebar" style="border-right: 1px solid #000;">
-                <div class="sidebar-sticky">
-                    <!--Icono-->
-                    <div class="nav flex-column">
+            
+
+            <!-- Menú principal: Sidebar + Offcanvas (mismo contenido) -->
+            <nav id="sidebarMenu" class="sidebar offcanvas-md offcanvas-start" tabindex="-1" aria-labelledby="sidebarMenuLabel">
+                <div class="offcanvas-header d-md-none">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+                </div>
+                <div class="sidebar-sticky pt-3">
+                    <!-- Icono -->
+                    <div class="nav flex-column mb-4">
                         <a href="{{ route('main') }}">
-                            <img src="/img/Icon.png" alt="Icon" class="img-fluid">
+                            <img src="./img/Icon.png" alt="Icon" class="img-fluid" style="max-width: 100px; height: auto;">
+
                         </a>
                     </div>
-                    <!--Menu-->
+                    <!-- Menú -->
                     <ul class="nav flex-column">
-                    @role('admin')
+                        @role('admin')
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link" href="#">
                                 Negocios
                             </a>
                         </li>
-                    @endrole
+                        @endrole
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('Productos.index') }}">
                                 Productos
                             </a>
                         </li>
-                        <li class="nav-item fs-6">
+                        <li class="nav-item">
                             <a class="nav-link" href="#">
                                 Banners
                             </a>
@@ -84,12 +91,17 @@
                     </ul>
                 </div>
             </nav>
-            <!--Header-->
-            <div class="col-md-11">
+            
+            <div class="col">
+                <!-- Botón de menú hamburguesa para pantallas pequeñas -->
+                <button class="btn btn-custom d-md-none my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+                    <i class="bi bi-list"></i> Menú
+                </button>
+                
+                <!--Header-->
                 <div class="header row">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="mt-2">{{ $nombreVista }}</h2>
-                        
                         <!-- Agregar autenticación -->
                         @if (Route::has('login'))
                             <div class="text-end">
@@ -97,7 +109,6 @@
                                     <a href="{{ url('/dashboard') }}" class="btn btn-custom">Usuario</a>
                                 @else
                                     <a href="{{ route('login') }}" class="btn btn-custom me-2">Iniciar Sesión</a>
-
                                     @if (Route::has('register'))
                                         <a href="{{ route('register') }}" class="btn btn-custom">Registrarse</a>
                                     @endif
@@ -106,8 +117,9 @@
                         @endif
                     </div>
                 </div>
-                <main role="main" class="ml-sm-auto px-4">
-                    <!--Contenido de las vistas-->
+                
+                <!--Contenido de las vistas-->
+                <main role="main" class="px-4">    
                     <div class="container">
                         @yield('contenedor')
                     </div>
@@ -116,5 +128,16 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.innerWidth >= 780) {
+                var sidebar = document.getElementById('sidebarMenu');
+                sidebar.classList.remove('offcanvas', 'offcanvas-start');
+                sidebar.removeAttribute('tabindex');
+                sidebar.removeAttribute('aria-labelledby');
+            }
+        });
+    </script>
 </body>
 </html>
+
