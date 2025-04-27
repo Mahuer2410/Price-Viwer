@@ -41,17 +41,20 @@ class ProductoController extends Controller
         //cargar imagen
         if($request->hasFile("image"))
         {
-            $image=$request->file("image");
-            $imagename=Str::slug($request->name).".".$image->guessExtension();
-            $ruta=public_path("img/productos/");
-            $image->move($ruta,$imagename);
-            $producto->image=$imagename;
+            $image = $request->file("image");
+            $imagename = Str::slug($request->name) . "." . $image->guessExtension();
+            $ruta = public_path("img/productos/");
+            $image->move($ruta, $imagename);
+            $producto->image = $imagename;
         }
-        //cargar imagen
+        
+        // Asignar el usuario autenticado al producto
+        $producto->user_id = auth()->id(); // Asignar el ID del usuario autenticado
         $producto->name = $request->name;
         $producto->price = $request->price;
         $producto->direction = $request->direction;
         $producto->save();
+        
         return redirect()->route('Productos.index');
     }
 
@@ -78,20 +81,27 @@ class ProductoController extends Controller
     public function update(Request $request, string $id)
     {
         $producto = producto::find($id);
+
+        // Verificar si el producto pertenece al usuario autenticado
+        if ($producto->user_id !== auth()->id()) {
+            return redirect()->route('Productos.index')->with('error', 'No tienes permiso para editar este producto.');
+        }
+
         //cargar imagen
         if($request->hasFile("image"))
         {
-            $image=$request->file("image");
-            $imagename=Str::slug($request->name).".".$image->guessExtension();
-            $ruta=public_path("img/productos/");
-            $image->move($ruta,$imagename);
-            $producto->image=$imagename;
+            $image = $request->file("image");
+            $imagename = Str::slug($request->name) . "." . $image->guessExtension();
+            $ruta = public_path("img/productos/");
+            $image->move($ruta, $imagename);
+            $producto->image = $imagename;
         }
-        //cargar imagen
+
         $producto->name = $request->name;
         $producto->price = $request->price;
         $producto->direction = $request->direction;
         $producto->save();
+        
         return redirect()->route('Productos.index');
     }
 

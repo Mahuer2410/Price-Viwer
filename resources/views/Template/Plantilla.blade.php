@@ -58,17 +58,19 @@
                 <div class="sidebar-sticky">
                     <!--Icono-->
                     <div class="nav flex-column">
-                        <a href="{{ route('Productos.main') }}">
+                        <a href="{{ route('main') }}">
                             <img src="/img/Icon.png" alt="Icon" class="img-fluid">
                         </a>
                     </div>
                     <!--Menu-->
                     <ul class="nav flex-column">
+                    @role('admin')
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 Negocios
                             </a>
                         </li>
+                    @endrole
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('Productos.index') }}">
                                 Productos

@@ -18,7 +18,7 @@
                             <tbody>
                                 @foreach ($productos as $producto)
                                     <tr>
-                                        <td scope="row" class="text-center"><img src="/img/productos/{{$producto->image}}" alt="" style="max-width: 50px; min-width:auto"></td>
+                                        <td scope="row" class="text-center"><img src="./img/productos/{{$producto->image}}" alt="" style="max-width: 50px; min-width:auto"></td>
                                         <td class="align-middle">{{$producto->name}}</td>
                                         <td class="align-middle">{{$producto->price}}</td>
                                         <td class="align-middle">{{$producto->direction}}</td>

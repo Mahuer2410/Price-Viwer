@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Producto;
 
@@ -19,10 +20,18 @@ use App\Models\Producto;
 
 Route::get('/welcome', function () {return view('welcome');});
 
-// Rutas de Productos
-Route::get('/', [ProductoController::class,'mainProductos'])
-->name('Productos.main');
+// Rutas Propias
+Route::get('/main', [RoleController::class,'index'])
+->name('main');
 
+Route::get('/', [ProductoController::class, 'buscador'])
+->name('Productos.buscador');
+
+//Rutas de los roles
+Route::post('/',[RoleController::class,'store'])
+->name('roles.store');
+
+//Productos
 Route::get('Productos',[ProductoController::class,'index'])
 ->name('Productos.index');
 Route::get('Productos/create',[ProductoController::class,'create'])
@@ -38,8 +47,7 @@ Route::put('Productos/{id}',[ProductoController::class,'update'])
 Route::delete('Productos/{id}',[ProductoController::class,'destroy'])
 ->name('Productos.destroy');
 
-Route::get('/buscador', [ProductoController::class, 'buscador'])
-->name('Productos.buscador');
+
 
 // Rutas de Breeze
 Route::get('/dashboard', [DashboardController::class, 'index'])
