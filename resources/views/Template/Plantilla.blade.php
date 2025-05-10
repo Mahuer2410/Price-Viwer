@@ -106,7 +106,7 @@
                         @if (Route::has('login'))
                             <div class="text-end">
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="btn btn-custom">Usuario</a>
+                                    <a href="{{ url('/dashboard') }}" class="btn btn-custom">{{ Auth::user()->name }}</a>
                                 @else
                                     <a href="{{ route('login') }}" class="btn btn-custom me-2">Iniciar Sesión</a>
                                     @if (Route::has('register'))

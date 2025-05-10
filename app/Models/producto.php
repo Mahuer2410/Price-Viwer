@@ -13,5 +13,12 @@ class producto extends Model
         'name',
         'description',
         'price',
+        'direction',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -18,12 +18,19 @@ class ProductoController extends Controller
     }
     public function index()
     {
-        $productos = producto::paginate(2);
+        if (auth()->user()->hasRole('admin')) {
+            // Si es admin, muestra todos los productos
+            $productos = producto::paginate(2);
+        } else {
+            // Si no es admin, solo muestra sus propios productos
+            $productos = producto::where('user_id', auth()->id())->paginate(2);
+        }
+
         $data = [
             'productos' => $productos,
             'nombreVista' => 'Productos'
         ];
-        return view('productos.index', $data);
+        return view('Productos.index', $data);
     }
 
     public function create()

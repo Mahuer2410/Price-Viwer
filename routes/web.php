@@ -20,34 +20,35 @@ use App\Models\Producto;
 
 Route::get('/welcome', function () {return view('welcome');});
 
-// Rutas Propias
-Route::get('/main', [RoleController::class,'index'])
-->name('main');
-
+// Ruta pública del buscador
 Route::get('/', [ProductoController::class, 'buscador'])
 ->name('Productos.buscador');
 
-//Rutas de los roles
-Route::post('/',[RoleController::class,'store'])
-->name('roles.store');
+// Rutas protegidas que requieren autenticación
+Route::middleware(['auth'])->group(function () {
+    Route::get('/main', [RoleController::class,'index'])
+    ->name('main');
 
-//Productos
-Route::get('Productos',[ProductoController::class,'index'])
-->name('Productos.index');
-Route::get('Productos/create',[ProductoController::class,'create'])
-->name('Productos.create');
-Route::post('Productos',[ProductoController::class,'store'])
-->name('Productos.store');
-Route::get('Productos/{id}',[ProductoController::class,'show'])
-->name('Productos.show');
-Route::get('Productos/{id}/edit',[ProductoController::class,'edit'])
-->name('Productos.edit');
-Route::put('Productos/{id}',[ProductoController::class,'update'])
-->name('Productos.update');
-Route::delete('Productos/{id}',[ProductoController::class,'destroy'])
-->name('Productos.destroy');
+    //Rutas de los roles
+    Route::post('/',[RoleController::class,'store'])
+    ->name('roles.store');
 
-
+    //Productos
+    Route::get('Productos',[ProductoController::class,'index'])
+    ->name('Productos.index');
+    Route::get('Productos/create',[ProductoController::class,'create'])
+    ->name('Productos.create');
+    Route::post('Productos',[ProductoController::class,'store'])
+    ->name('Productos.store');
+    Route::get('Productos/{id}',[ProductoController::class,'show'])
+    ->name('Productos.show');
+    Route::get('Productos/{id}/edit',[ProductoController::class,'edit'])
+    ->name('Productos.edit');
+    Route::put('Productos/{id}',[ProductoController::class,'update'])
+    ->name('Productos.update');
+    Route::delete('Productos/{id}',[ProductoController::class,'destroy'])
+    ->name('Productos.destroy');
+});
 
 // Rutas de Breeze
 Route::get('/dashboard', [DashboardController::class, 'index'])
